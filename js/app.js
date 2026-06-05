@@ -45,7 +45,7 @@
   // Token 管理
   // ============================================================
   function loadToken() {
-    token = localStorage.getItem('gh_token') || '';
+    token = sanitizeToken(localStorage.getItem('gh_token') || '');
     if (token) {
       $('githubToken').value = token.substring(0, 4) + '...' + token.slice(-4);
       $('tokenStatus').textContent = '🟢 已配置';
@@ -53,8 +53,13 @@
     }
   }
 
+  function sanitizeToken(raw) {
+    // 去除所有非 ASCII 字符（零宽空格、BOM、中文标点等）
+    return raw.replace(/[^\x00-\x7F]/g, '').trim();
+  }
+
   function saveToken() {
-    const val = $('githubToken').value.trim();
+    const val = sanitizeToken($('githubToken').value);
     if (!val) return;
     token = val;
     localStorage.setItem('gh_token', token);
@@ -91,7 +96,7 @@
     const { sha } = await ghGet();
     const body = {
       message,
-      content: btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2) + '\n'))),
+      content: btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(content, null, 2) + '\n'))),
       sha,
     };
     const resp = await fetch(GH_API, {

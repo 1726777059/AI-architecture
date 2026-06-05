@@ -10,6 +10,7 @@
   let catalog = null;
   let filterText = '';
   let activeTag = null;
+  let editingId = null;  // 正在编辑的条目 ID（null = 新增模式）
 
   // --- 常量：类别颜色映射（兜底） ---
   const DEFAULT_COLORS = {
@@ -132,6 +133,30 @@
     descEl.textContent = entry.description;
     card.appendChild(descEl);
 
+    // 操作按钮（编辑 / 删除）
+    const actions = document.createElement('div');
+    actions.className = 'card__actions';
+
+    const editBtn = document.createElement('button');
+    editBtn.className = 'card__action-btn card__action-btn--edit';
+    editBtn.textContent = '✏️ 编辑';
+    editBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      editEntry(entry);
+    });
+    actions.appendChild(editBtn);
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'card__action-btn card__action-btn--delete';
+    delBtn.textContent = '🗑️ 删除';
+    delBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showDeleteDialog(entry);
+    });
+    actions.appendChild(delBtn);
+
+    card.appendChild(actions);
+
     // 底部：链接 + 日期
     const footer = document.createElement('div');
     footer.className = 'card__footer';
@@ -155,6 +180,81 @@
 
     card.appendChild(footer);
     return card;
+  }
+
+  // ============================================================
+  // 编辑 / 删除
+  // ============================================================
+  function editEntry(entry) {
+    editingId = entry.id;
+    document.getElementById('formCategory').value = entry.category;
+    document.getElementById('formName').value = entry.name;
+    document.getElementById('formDesc').value = entry.description;
+    document.getElementById('formUrl').value = entry.url || '';
+    document.getElementById('formTags').value = (entry.tags || []).join(', ');
+
+    // 更新 UI：显示编辑模式
+    const modeEl = document.getElementById('formMode');
+    modeEl.textContent = '✏️ 编辑模式';
+    modeEl.className = 'entry-form__mode-indicator entry-form__mode-indicator--edit';
+    document.getElementById('cancelEditBtn').hidden = false;
+    document.getElementById('jsonOutput').hidden = true;
+
+    // 展开添加区域并滚动到表单
+    document.getElementById('addEntrySection').open = true;
+    document.getElementById('entryForm').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    editingId = null;
+    document.getElementById('entryForm').reset();
+    const modeEl = document.getElementById('formMode');
+    modeEl.textContent = '➕ 新增模式';
+    modeEl.className = 'entry-form__mode-indicator entry-form__mode-indicator--add';
+    document.getElementById('cancelEditBtn').hidden = true;
+    document.getElementById('jsonOutput').hidden = true;
+  }
+
+  function showDeleteDialog(entry) {
+    const snippet = JSON.stringify(entry, null, 2) + ',';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'delete-dialog-overlay';
+
+    const dialog = document.createElement('div');
+    dialog.className = 'delete-dialog';
+    dialog.innerHTML = `
+      <h3 class="delete-dialog__title">🗑️ 删除「${entry.name}」</h3>
+      <p class="delete-dialog__msg">
+        由于网站是静态托管，删除操作需要在本地编辑文件。<br>
+        <strong>从 <code>data/catalog.json</code> 的 <code>entries</code> 数组中删除以下条目：</strong>
+      </p>
+      <div class="delete-dialog__json">${escapeHtml(snippet)}</div>
+      <div class="delete-dialog__actions">
+        <button class="delete-dialog__btn delete-dialog__btn--cancel" id="delCancelBtn">取消</button>
+        <button class="delete-dialog__btn delete-dialog__btn--copy" id="delCopyBtn">📋 复制条目内容</button>
+      </div>
+    `;
+    overlay.appendChild(dialog);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.remove();
+    });
+    dialog.querySelector('#delCancelBtn').addEventListener('click', () => overlay.remove());
+    dialog.querySelector('#delCopyBtn').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(snippet);
+        dialog.querySelector('#delCopyBtn').textContent = '✅ 已复制';
+      } catch {
+        dialog.querySelector('#delCopyBtn').textContent = '✅ 请手动复制上方内容';
+      }
+    });
+
+    document.body.appendChild(overlay);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   // ============================================================
@@ -310,6 +410,12 @@
     const output = document.getElementById('jsonOutput');
     const snippet = document.getElementById('jsonSnippet');
     const copyBtn = document.getElementById('copyBtn');
+    const cancelBtn = document.getElementById('cancelEditBtn');
+
+    // 取消编辑
+    cancelBtn.addEventListener('click', () => {
+      resetForm();
+    });
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -322,34 +428,47 @@
 
       if (!category || !name || !desc) return;
 
-      // 生成 ID 前缀
-      const prefixes = {
-        'prompt-templates': 'pt',
-        'harness-mechanisms': 'hm',
-        'mcp-servers': 'mcp',
-        'skills': 'sk',
-      };
-      const prefix = prefixes[category] || 'xx';
-      const existing = (catalog.entries || []).filter(e => e.category === category).length;
-      const id = `${prefix}-${String(existing + 1).padStart(3, '0')}`;
+      let entry;
 
-      // 生成条目
-      const entry = {
-        id,
-        category,
-        name,
-        description: desc,
-      };
-      if (url) entry.url = url;
-      if (rawTags) {
-        entry.tags = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+      if (editingId) {
+        // 编辑模式：复用原 ID
+        const original = (catalog.entries || []).find(e => e.id === editingId);
+        entry = {
+          id: editingId,
+          category,
+          name,
+          description: desc,
+        };
+        if (url) entry.url = url;
+        if (rawTags) {
+          entry.tags = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+        }
+        entry.added = (original && original.added) || new Date().toISOString().slice(0, 10);
+
+        snippet.textContent = '/**\n * 在 catalog.json 中找到 id="' + editingId + '" 的条目，\n * 替换为以下内容：\n */\n' + JSON.stringify(entry, null, 2) + ',';
+      } else {
+        // 新增模式
+        const prefixes = {
+          'prompt-templates': 'pt',
+          'harness-mechanisms': 'hm',
+          'mcp-servers': 'mcp',
+          'skills': 'sk',
+        };
+        const prefix = prefixes[category] || 'xx';
+        const existing = (catalog.entries || []).filter(e => e.category === category).length;
+        const id = `${prefix}-${String(existing + 1).padStart(3, '0')}`;
+
+        entry = { id, category, name, description: desc };
+        if (url) entry.url = url;
+        if (rawTags) {
+          entry.tags = rawTags.split(',').map(t => t.trim()).filter(Boolean);
+        }
+        entry.added = new Date().toISOString().slice(0, 10);
+
+        snippet.textContent = JSON.stringify(entry, null, 2) + ',';
       }
-      entry.added = new Date().toISOString().slice(0, 10);
 
-      snippet.textContent = JSON.stringify(entry, null, 2) + ',';
       output.hidden = false;
-
-      // 滚动到输出区域
       output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
@@ -360,7 +479,6 @@
         copyBtn.textContent = '✅ 已复制';
         setTimeout(() => { copyBtn.textContent = '📋 复制'; }, 1500);
       } catch {
-        // fallback: 选中文本
         const range = document.createRange();
         range.selectNodeContents(snippet);
         const sel = window.getSelection();

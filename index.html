@@ -40,6 +40,9 @@
           填写以下信息，点击"生成"按钮，然后将生成的 JSON 片段复制到
           <code>data/catalog.json</code> 的 <code>entries</code> 数组中，提交到 GitHub 即生效。
         </p>
+        <p class="entry-form__mode-row">
+          <span class="entry-form__mode-indicator entry-form__mode-indicator--add" id="formMode">➕ 新增模式</span>
+        </p>
         <form id="entryForm" class="entry-form" autocomplete="off">
           <div class="entry-form__row">
             <label class="entry-form__label">
@@ -69,7 +72,10 @@
               <input type="text" id="formTags" class="entry-form__input" placeholder="claude, code-generation">
             </label>
           </div>
-          <button type="submit" class="entry-form__btn">✨ 生成 JSON 片段</button>
+          <div style="display:flex;gap:0.5rem;align-items:center;">
+            <button type="submit" class="entry-form__btn">✨ 生成 JSON 片段</button>
+            <button type="button" class="entry-form__cancel-btn" id="cancelEditBtn" hidden>取消编辑</button>
+          </div>
         </form>
         <div class="entry-form__output" id="jsonOutput" hidden>
           <div class="entry-form__output-header">

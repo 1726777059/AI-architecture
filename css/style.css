@@ -46,7 +46,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
 }
 
 body {
@@ -114,106 +113,73 @@ code {
 .search-input::placeholder { color: var(--color-text-light); }
 
 /* ============================================================
-   Sticky Category Nav
+   Category Nav — V2 隐藏（4 列并排无需跳转导航）
    ============================================================ */
-.category-nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.category-nav__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: var(--radius-lg);
-  white-space: nowrap;
-  transition: background 0.15s, color 0.15s;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-family: inherit;
-}
-
-.category-nav__link:hover {
-  background: #f3f4f6;
-  color: var(--color-text);
-}
-
-.category-nav__link--active {
-  color: #fff;
-}
-
-/* 通过 data-category 属性在 JS 中动态设置背景色 */
-.category-nav__link .nav-count {
-  font-size: 0.75rem;
-  opacity: 0.7;
-}
+.category-nav { display: none; }
 
 /* ============================================================
-   Main Content
+   Main Content — V2: 4 列并排布局
    ============================================================ */
 .main-content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: var(--space-lg) var(--space-lg) var(--space-2xl);
+  padding: var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
 }
 
 .loading, .error { text-align: center; padding: var(--space-2xl); color: var(--color-text-muted); }
 .error { color: #dc2626; }
 
 /* ============================================================
-   Category Section
+   Category Section — V2: 每列一个分类
    ============================================================ */
 .category-section {
-  margin-bottom: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .category-section__header {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   padding-bottom: var(--space-sm);
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 3px solid var(--color-border);
 }
 
 .category-section__icon {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .category-section__name {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .category-section__count {
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--color-text-muted);
   background: #f3f4f6;
-  padding: 0.125rem 0.5rem;
+  padding: 0.1rem 0.4rem;
   border-radius: var(--radius-lg);
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .category-section__desc {
-  margin: 0 0 var(--space-md);
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+  margin: -0.25rem 0 var(--space-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  line-height: 1.4;
 }
 
 .category-section--empty {
@@ -227,12 +193,12 @@ code {
 }
 
 /* ============================================================
-   Card Grid
+   Card Grid — V2: 竖排堆叠
    ============================================================ */
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
 /* ============================================================
@@ -317,6 +283,158 @@ code {
 .card__link:hover { color: var(--color-text); }
 
 .card__date { margin-left: auto; }
+
+/* ============================================================
+   Card Actions — 编辑 / 删除
+   ============================================================ */
+.card__actions {
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.card:hover .card__actions {
+  opacity: 1;
+}
+
+.card__action-btn {
+  padding: 0.15rem 0.35rem;
+  font-size: 0.65rem;
+  font-family: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.card__action-btn:hover {
+  background: #f3f4f6;
+  color: var(--color-text);
+  border-color: var(--color-text-light);
+}
+
+.card__action-btn--edit:hover {
+  border-color: var(--color-prompt);
+  color: var(--color-prompt);
+}
+
+.card__action-btn--delete:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* 编辑模式指示 */
+.entry-form__mode-indicator {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.entry-form__mode-indicator--add {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.entry-form__mode-indicator--edit {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.entry-form__cancel-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.entry-form__cancel-btn:hover { background: #f3f4f6; }
+
+/* 删除对话框 */
+.delete-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.delete-dialog {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  max-width: 480px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+}
+
+.delete-dialog__title {
+  margin: 0 0 var(--space-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.delete-dialog__msg {
+  margin: 0 0 var(--space-md);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.delete-dialog__json {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #991b1b;
+  margin-bottom: var(--space-md);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.delete-dialog__actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+}
+
+.delete-dialog__btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: none;
+}
+
+.delete-dialog__btn--cancel {
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.delete-dialog__btn--copy {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.delete-dialog__btn--copy:hover { background: #fee2e2; }
 
 /* ============================================================
    No Results
@@ -491,11 +609,19 @@ code {
 }
 
 /* ============================================================
-   Responsive
+   Responsive — V2
    ============================================================ */
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 640px) {
   .header__title { font-size: 1.35rem; }
-  .card-grid { grid-template-columns: 1fr; }
-  .category-nav { justify-content: flex-start; }
-  .main-content { padding: var(--space-md) var(--space-md) var(--space-xl); }
+  .main-content {
+    grid-template-columns: 1fr;
+    padding: var(--space-md);
+  }
 }
+

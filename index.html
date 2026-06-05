@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="toast-container" id="toastContainer"></div>
+
   <header class="header">
     <h1 class="header__title">🪐 Vibecoding 资源目录</h1>
     <p class="header__subtitle">多维度记录与发现 vibecoding 工具、资源和实践</p>
@@ -33,12 +35,22 @@
   </main>
 
   <footer class="footer">
+    <!-- Token 配置 -->
+    <div class="settings-row" id="settingsRow">
+      <span class="settings-row__label">🔑 Token</span>
+      <input type="password" id="githubToken" class="settings-row__input"
+             placeholder="ghp_... 或 github_pat_...（仅存本地浏览器）">
+      <button class="settings-row__btn settings-row__btn--save" id="saveTokenBtn">💾 保存</button>
+      <button class="settings-row__btn settings-row__btn--clear" id="clearTokenBtn" hidden>清除</button>
+      <span style="font-size:0.7rem;color:var(--text-muted);white-space:nowrap;" id="tokenStatus">⚪ 未配置</span>
+    </div>
+
     <details class="add-entry" id="addEntrySection">
-      <summary class="add-entry__summary">📥 如何添加新条目</summary>
+      <summary class="add-entry__summary">📥 添加 / 编辑条目</summary>
       <div class="add-entry__body">
         <p class="add-entry__hint">
-          填写以下信息，点击"生成"按钮，然后将生成的 JSON 片段复制到
-          <code>data/catalog.json</code> 的 <code>entries</code> 数组中，提交到 GitHub 即生效。
+          填写后点"保存"，直接通过 GitHub API 提交到
+          <code>data/catalog.json</code>，几秒后自动部署。
         </p>
         <p class="entry-form__mode-row">
           <span class="entry-form__mode-indicator entry-form__mode-indicator--add" id="formMode">➕ 新增模式</span>
@@ -73,21 +85,13 @@
             </label>
           </div>
           <div style="display:flex;gap:0.5rem;align-items:center;">
-            <button type="submit" class="entry-form__btn">✨ 生成 JSON 片段</button>
+            <button type="submit" class="entry-form__btn" id="submitBtn">💾 保存到 GitHub</button>
             <button type="button" class="entry-form__cancel-btn" id="cancelEditBtn" hidden>取消编辑</button>
+            <span style="font-size:0.75rem;color:var(--text-muted);" id="saveHint"></span>
           </div>
         </form>
-        <div class="entry-form__output" id="jsonOutput" hidden>
-          <div class="entry-form__output-header">
-            <span class="entry-form__output-label">生成的 JSON 片段：</span>
-            <button type="button" class="entry-form__copy-btn" id="copyBtn">📋 复制</button>
-          </div>
-          <pre><code id="jsonSnippet"></code></pre>
-        </div>
         <p class="add-entry__steps">
-          <strong>步骤：</strong>① 填写表单 → ② 生成片段 → ③ 复制 →
-          ④ 打开 <code>data/catalog.json</code> → ⑤ 粘贴到 <code>entries</code> 数组 →
-          ⑥ <code>git commit && git push</code> → ⑦ GitHub Pages 自动部署
+          💡 需要先在顶部配置 GitHub Token 才能直接保存。
         </p>
       </div>
     </details>

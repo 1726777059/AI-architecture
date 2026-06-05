@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibecoding 资源目录</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__title">🪐 Vibecoding 资源目录</h1>
+    <p class="header__subtitle">多维度记录与发现 vibecoding 工具、资源和实践</p>
+    <div class="header__search">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="🔍 搜索条目名称、描述或标签..."
+        autocomplete="off"
+      >
+    </div>
+  </header>
+
+  <nav id="categoryNav" class="category-nav" aria-label="分类导航"></nav>
+
+  <main id="mainContent" class="main-content">
+    <div class="loading" id="loadingState">
+      <p>加载中...</p>
+    </div>
+    <div class="error" id="errorState" hidden>
+      <p>⚠️ 无法加载数据，请确认 <code>data/catalog.json</code> 文件存在且格式正确。</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <details class="add-entry" id="addEntrySection">
+      <summary class="add-entry__summary">📥 如何添加新条目</summary>
+      <div class="add-entry__body">
+        <p class="add-entry__hint">
+          填写以下信息，点击"生成"按钮，然后将生成的 JSON 片段复制到
+          <code>data/catalog.json</code> 的 <code>entries</code> 数组中，提交到 GitHub 即生效。
+        </p>
+        <form id="entryForm" class="entry-form" autocomplete="off">
+          <div class="entry-form__row">
+            <label class="entry-form__label">
+              分类
+              <select id="formCategory" class="entry-form__select" required>
+                <option value="">-- 选择分类 --</option>
+              </select>
+            </label>
+            <label class="entry-form__label">
+              名称
+              <input type="text" id="formName" class="entry-form__input" placeholder="条目名称" required>
+            </label>
+          </div>
+          <div class="entry-form__row">
+            <label class="entry-form__label entry-form__label--wide">
+              描述
+              <input type="text" id="formDesc" class="entry-form__input" placeholder="1-2 句话描述它的用途和为什么好用" required>
+            </label>
+          </div>
+          <div class="entry-form__row">
+            <label class="entry-form__label">
+              URL（可选）
+              <input type="url" id="formUrl" class="entry-form__input" placeholder="https://...">
+            </label>
+            <label class="entry-form__label">
+              标签（可选，逗号分隔）
+              <input type="text" id="formTags" class="entry-form__input" placeholder="claude, code-generation">
+            </label>
+          </div>
+          <button type="submit" class="entry-form__btn">✨ 生成 JSON 片段</button>
+        </form>
+        <div class="entry-form__output" id="jsonOutput" hidden>
+          <div class="entry-form__output-header">
+            <span class="entry-form__output-label">生成的 JSON 片段：</span>
+            <button type="button" class="entry-form__copy-btn" id="copyBtn">📋 复制</button>
+          </div>
+          <pre><code id="jsonSnippet"></code></pre>
+        </div>
+        <p class="add-entry__steps">
+          <strong>步骤：</strong>① 填写表单 → ② 生成片段 → ③ 复制 →
+          ④ 打开 <code>data/catalog.json</code> → ⑤ 粘贴到 <code>entries</code> 数组 →
+          ⑥ <code>git commit && git push</code> → ⑦ GitHub Pages 自动部署
+        </p>
+      </div>
+    </details>
+    <p class="footer__meta">
+      最后更新：<span id="lastUpdated">--</span>
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Vibecoding 资源目录",
+    "description": "多维度记录与发现 vibecoding 工具、资源和实践",
+    "lastUpdated": "2026-06-05"
+  },
+  "categories": [
+    {
+      "id": "prompt-templates",
+      "name": "提示词模板",
+      "nameEn": "Prompt Templates",
+      "icon": "📝",
+      "color": "#6366f1",
+      "description": "可复用的提示词模板，覆盖代码生成、重构、调试等场景"
+    },
+    {
+      "id": "harness-mechanisms",
+      "name": "Harness机制",
+      "nameEn": "Harness Mechanisms",
+      "icon": "⚙️",
+      "color": "#f59e0b",
+      "description": "工程化机制：Hooks、Subagent、Workflow、Rules 等基础设施"
+    },
+    {
+      "id": "mcp-servers",
+      "name": "MCP服务器",
+      "nameEn": "MCP Servers",
+      "icon": "🔌",
+      "color": "#10b981",
+      "description": "Model Context Protocol 服务器，扩展 AI 工具能力边界"
+    },
+    {
+      "id": "skills",
+      "name": "Skill技能",
+      "nameEn": "Skills",
+      "icon": "🛠️",
+      "color": "#ec4899",
+      "description": "Claude Code Skills 和自定义技能脚本"
+    }
+  ],
+  "entries": [
+    {
+      "id": "pt-001",
+      "category": "prompt-templates",
+      "name": "计划先行模板",
+      "description": "在写代码前先生成计划，让 Claude 列出文件变更清单和实现步骤，用户确认后再执行",
+      "tags": ["claude", "planning"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "hm-001",
+      "category": "harness-mechanisms",
+      "name": "Project Harness",
+      "description": "多会话自主代理工作框架，支持进度检查点、故障恢复和任务依赖管理，适合长运行代理任务",
+      "url": "https://github.com/anthropics/claude-code",
+      "tags": ["claude-code", "agent", "orchestration"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "hm-002",
+      "category": "harness-mechanisms",
+      "name": "Workflow 多代理编排",
+      "description": "通过 pipeline/parallel 模式编排多个子代理并发工作，支持结构化输出 schema 约束和断点续跑",
+      "tags": ["claude-code", "workflow", "orchestration"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-001",
+      "category": "mcp-servers",
+      "name": "Memory MCP",
+      "description": "基于知识图谱的持久化记忆服务器，支持实体、关系和观察的创建与搜索，适合跨会话知识积累",
+      "tags": ["memory", "knowledge-graph"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-002",
+      "category": "mcp-servers",
+      "name": "Sequential Thinking MCP",
+      "description": "动态反思式思考工具，支持分支、修正和假设验证，用于复杂问题的分步推理",
+      "tags": ["reasoning", "problem-solving"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-001",
+      "category": "skills",
+      "name": "code-review",
+      "description": "强制代码审查 Skill，提交前自动检查正确性、安全性和可简化点，分低/中/高/极致四个审查深度",
+      "tags": ["claude-code", "code-quality"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-002",
+      "category": "skills",
+      "name": "brainstorming",
+      "description": "在创建功能、构建组件或修改行为前强制进行需求探索和方案设计，避免盲目编码",
+      "tags": ["claude-code", "design"],
+      "added": "2026-06-05"
+    }
+  ]
+}

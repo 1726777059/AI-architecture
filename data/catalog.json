@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "Vibecoding 资源目录",
-    "description": "多维度记录与发现 vibecoding 工具、资源和实践",
-    "lastUpdated": "2026-06-05"
+    "description": "Claude Code + DeepSeek 技术栈全资源：Skills、MCP、命令、Harness机制一站式浏览",
+    "lastUpdated": "2026-06-08"
   },
   "categories": [
     {
@@ -35,7 +35,15 @@
       "nameEn": "Skills",
       "icon": "🛠️",
       "color": "#ec4899",
-      "description": "Claude Code Skills 和自定义技能脚本"
+      "description": "Claude Code Skills — 61 个已安装，斜杠命令一键触发专业流程"
+    },
+    {
+      "id": "tools-reference",
+      "name": "工具参考",
+      "nameEn": "Tools Reference",
+      "icon": "📖",
+      "color": "#06b6d4",
+      "description": "cc-connect、Claude Code CLI 命令速查与工作流"
     }
   ],
   "entries": [
@@ -48,11 +56,35 @@
       "added": "2026-06-05"
     },
     {
+      "id": "pt-002",
+      "category": "prompt-templates",
+      "name": "代码上下文模板",
+      "description": "先喂相关文件给模型：'参考 xxx.py 的风格，实现 yyy 功能，保持一致的命名和异常处理方式'",
+      "tags": ["claude", "context"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "pt-003",
+      "category": "prompt-templates",
+      "name": "分步渐进模板",
+      "description": "复杂任务分步来：先写核心逻辑 → 加校验 → 加异常处理 → 写测试，每步确认后再继续",
+      "tags": ["claude", "incremental"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "pt-004",
+      "category": "prompt-templates",
+      "name": "预总结模板",
+      "description": "'写完了？先总结你的改动内容和理由，不要写入文件' — 让模型先说明再执行，减少返工",
+      "tags": ["claude", "verify"],
+      "added": "2026-06-08"
+    },
+
+    {
       "id": "hm-001",
       "category": "harness-mechanisms",
       "name": "Project Harness",
       "description": "多会话自主代理工作框架，支持进度检查点、故障恢复和任务依赖管理，适合长运行代理任务",
-      "url": "https://github.com/anthropics/claude-code",
       "tags": ["claude-code", "agent", "orchestration"],
       "added": "2026-06-05"
     },
@@ -65,9 +97,58 @@
       "added": "2026-06-05"
     },
     {
+      "id": "hm-003",
+      "category": "harness-mechanisms",
+      "name": "Hooks 生命周期注入",
+      "description": "在 SessionStart/Stop/PreToolUse 等事件注入自定义脚本，实现权限拦截、规范注入、进度跟踪",
+      "tags": ["claude-code", "hooks", "automation"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "hm-004",
+      "category": "harness-mechanisms",
+      "name": "Memory 持久化系统",
+      "description": "基于文件的知识持久化机制（~/.claude/projects/），跨会话记住关键决策、约定和反馈",
+      "tags": ["claude-code", "memory", "knowledge"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "hm-005",
+      "category": "harness-mechanisms",
+      "name": "Git Worktree 隔离",
+      "description": "claude -w 创建独立 git worktree，隔离功能开发工作空间，避免文件冲突，支持并行开发",
+      "tags": ["claude-code", "git", "isolation"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "hm-006",
+      "category": "harness-mechanisms",
+      "name": "Task 任务系统",
+      "description": "TaskCreate/TaskUpdate/TaskList 工具 — 结构化任务跟踪，支持依赖关系和状态流转",
+      "tags": ["claude-code", "task", "tracking"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "hm-007",
+      "category": "harness-mechanisms",
+      "name": "Cron 定时调度",
+      "description": "CronCreate 工具设置一次性或周期性定时任务，适合定时检查 CI / 轮询 / 每日提醒",
+      "tags": ["claude-code", "cron", "scheduling"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "hm-008",
+      "category": "harness-mechanisms",
+      "name": "Loop 循环命令",
+      "description": "/loop 5m /something 定时循环执行命令，用于轮询 CI、定期检查状态",
+      "tags": ["claude-code", "loop", "polling"],
+      "added": "2026-06-08"
+    },
+
+    {
       "id": "mcp-001",
       "category": "mcp-servers",
-      "name": "Memory MCP",
+      "name": "Memory MCP (内置)",
       "description": "基于知识图谱的持久化记忆服务器，支持实体、关系和观察的创建与搜索，适合跨会话知识积累",
       "tags": ["memory", "knowledge-graph"],
       "added": "2026-06-05"
@@ -75,26 +156,702 @@
     {
       "id": "mcp-002",
       "category": "mcp-servers",
-      "name": "Sequential Thinking MCP",
+      "name": "Sequential Thinking MCP (内置)",
       "description": "动态反思式思考工具，支持分支、修正和假设验证，用于复杂问题的分步推理",
       "tags": ["reasoning", "problem-solving"],
       "added": "2026-06-05"
     },
     {
+      "id": "mcp-003",
+      "category": "mcp-servers",
+      "name": "Codegraph MCP (内置)",
+      "description": "代码智能知识图谱 — SQLite 索引每个符号和边，亚毫秒级查询，支持自然语言探索代码库",
+      "tags": ["code-intelligence", "knowledge-graph", "exploration"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "mcp-004",
+      "category": "mcp-servers",
+      "name": "Fetch MCP (内置)",
+      "description": "网页抓取和内容提取，支持原始 HTML 和 Markdown 渲染，有 15 分钟缓存",
+      "tags": ["web", "fetch", "content"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "mcp-005",
+      "category": "mcp-servers",
+      "name": "GitHub MCP Server",
+      "description": "管理 Issues / PRs / 代码 / Actions / Releases，通过 GITHUB_TOKEN 认证",
+      "url": "https://github.com/anthropics/mcp-server-github",
+      "tags": ["github", "pr", "ci"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-006",
+      "category": "mcp-servers",
+      "name": "Git MCP Server",
+      "description": "本地 Git 操作：status/diff/log/add/commit/branch/checkout/push，比 Bash(git) 更安全",
+      "tags": ["git", "vcs"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-007",
+      "category": "mcp-servers",
+      "name": "Filesystem MCP Server",
+      "description": "安全读写文件系统，可限制根目录路径，防止越权访问项目外文件",
+      "tags": ["filesystem", "security"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-008",
+      "category": "mcp-servers",
+      "name": "Postgres MCP Server",
+      "description": "直连 PostgreSQL 数据库，Claude 直接执行查询，告别手动查表粘贴",
+      "tags": ["database", "postgres", "sql"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-009",
+      "category": "mcp-servers",
+      "name": "SQLite MCP Server",
+      "description": "查询 SQLite 数据库，适合本地开发和数据分析场景",
+      "tags": ["database", "sqlite"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-010",
+      "category": "mcp-servers",
+      "name": "Playwright MCP Server",
+      "description": "浏览器自动化（Web 端到端测试），可截图、点击、填写表单、验证页面状态",
+      "tags": ["testing", "browser", "e2e"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-011",
+      "category": "mcp-servers",
+      "name": "Brave Search MCP Server",
+      "description": "Web + Local 搜索，Claude 可自行搜索最新信息，无需手动提供搜索内容",
+      "tags": ["search", "web"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-012",
+      "category": "mcp-servers",
+      "name": "Slack MCP Server",
+      "description": "发送/读取 Slack 消息，自动通知团队或响应指令",
+      "tags": ["communication", "slack"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-013",
+      "category": "mcp-servers",
+      "name": "GitLab MCP Server",
+      "description": "GitLab Issues / MRs / CI 管理，社区维护",
+      "tags": ["gitlab", "pr", "ci"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-014",
+      "category": "mcp-servers",
+      "name": "Jira MCP Server",
+      "description": "管理 Issue / Sprint / Board，将 AI 生成内容直接写入 Jira",
+      "tags": ["jira", "project-management"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-015",
+      "category": "mcp-servers",
+      "name": "Docker MCP Server",
+      "description": "容器管理：ps/logs/build/run，直接从 Claude 操作 Docker",
+      "tags": ["docker", "container"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "mcp-016",
+      "category": "mcp-servers",
+      "name": "cc-connect (MCP 集成)",
+      "description": "桥接本地 AI Agent 到微信/飞书/Slack/Telegram，手机远程指挥 Claude Code 干活",
+      "url": "https://github.com/chenhg5/cc-connect",
+      "tags": ["messaging", "mobile", "remote"],
+      "added": "2026-06-08"
+    },
+
+    {
       "id": "sk-001",
       "category": "skills",
       "name": "code-review",
-      "description": "强制代码审查 Skill，提交前自动检查正确性、安全性和可简化点，分低/中/高/极致四个审查深度",
-      "tags": ["claude-code", "code-quality"],
+      "description": "多维度代码审查 Skill：正确性/安全/性能/简化，分低/中/高/极致四个深度，支持 --comment 发表 PR 评论",
+      "tags": ["built-in", "code-quality", "review"],
       "added": "2026-06-05"
     },
     {
       "id": "sk-002",
       "category": "skills",
       "name": "brainstorming",
-      "description": "在创建功能、构建组件或修改行为前强制进行需求探索和方案设计，避免盲目编码",
-      "tags": ["claude-code", "design"],
+      "description": "需求澄清 + 方案对比 Skill：在写代码前强制进行需求探索和方案设计，避免盲目编码",
+      "tags": ["built-in", "design", "planning"],
       "added": "2026-06-05"
+    },
+    {
+      "id": "sk-003",
+      "category": "skills",
+      "name": "simplify (code-simplifier)",
+      "description": "代码简化重构 Skill：只做优化（复用/简化/效率提升），不找 Bug，专注于代码可维护性",
+      "tags": ["built-in", "refactor", "code-quality"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-004",
+      "category": "skills",
+      "name": "verify",
+      "description": "运行应用验证改动是否真的生效，手动确认 PR/修复/功能是否按预期工作",
+      "tags": ["built-in", "testing", "validation"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-005",
+      "category": "skills",
+      "name": "planning-with-files-zh",
+      "description": "中文版复杂任务规划：创建 task_plan.md + findings.md + progress.md 三文件跟踪多步骤任务",
+      "tags": ["built-in", "planning", "chinese"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-006",
+      "category": "skills",
+      "name": "deep-research",
+      "description": "多源搜索 → 抓取网页 → 交叉验证 → 生成带引用来源的研究报告，适合技术调研",
+      "tags": ["built-in", "research", "search"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-007",
+      "category": "skills",
+      "name": "harness",
+      "description": "长时间的自主多会话工作模式：检查点、故障恢复、任务依赖，适合需要多轮会话才能完成的大型任务",
+      "tags": ["built-in", "automation", "long-running"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-008",
+      "category": "skills",
+      "name": "project-harness",
+      "description": "项目级任务编排层：跨会话任务持久化(hooks)、租约机制防丢失、失败自动重试、安全阀防死循环",
+      "tags": ["built-in", "orchestration", "tasks"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-009",
+      "category": "skills",
+      "name": "skill-creator",
+      "description": "专业 Skill 创建工具：引导式创建自定义 Skill，含 frontmatter 定义、规则编写和测试验证",
+      "tags": ["built-in", "meta", "authoring"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-010",
+      "category": "skills",
+      "name": "mcp-builder",
+      "description": "MCP Server 构建向导：引导式创建自定义 MCP Server，集成外部工具到 Claude Code",
+      "tags": ["built-in", "mcp", "integration"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-011",
+      "category": "skills",
+      "name": "webapp-testing",
+      "description": "Web 应用端到端测试（Playwright 驱动）：自动打开浏览器、操作页面、截图验证",
+      "tags": ["built-in", "testing", "playwright"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-012",
+      "category": "skills",
+      "name": "init",
+      "description": "新项目初始化向导：创建 .claude/ 配置、settings.json、hooks、CLAUDE.md 模板",
+      "tags": ["built-in", "setup", "project"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-013",
+      "category": "skills",
+      "name": "run",
+      "description": "启动项目应用并根据项目类型自动选择启动方式，配合 verify 验证改动效果",
+      "tags": ["built-in", "launch", "dev"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-014",
+      "category": "skills",
+      "name": "review (PR)",
+      "description": "PR 审查流程 Skill：检查变更、运行测试、发表 review 评论",
+      "tags": ["built-in", "pr", "review"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-015",
+      "category": "skills",
+      "name": "security-review",
+      "description": "安全审计 Skill：检查注入风险、权限泄露、敏感信息暴露、依赖漏洞",
+      "tags": ["built-in", "security", "audit"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-016",
+      "category": "skills",
+      "name": "update-config",
+      "description": "管理 settings.json 配置：权限 allow/deny、MCP 服务器、环境变量、hook 配置",
+      "tags": ["built-in", "config", "settings"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-017",
+      "category": "skills",
+      "name": "fewer-permission-prompts",
+      "description": "扫描 transcript 中的常用只读操作，自动添加 allowlist 到 .claude/settings.json 减少权限弹窗",
+      "tags": ["built-in", "permissions", "ux"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-018",
+      "category": "skills",
+      "name": "pptx",
+      "description": "创建和编辑 PPT 演示文稿（基于 pptxgenjs），自动排版、配色和图表生成",
+      "tags": ["built-in", "presentation", "office"],
+      "added": "2026-06-05"
+    },
+    {
+      "id": "sk-019",
+      "category": "skills",
+      "name": "snapview",
+      "description": "截图注入上下文 Skill：截取当前屏幕/窗口状态，让 AI 看到你看到的内容来辅助调试",
+      "tags": ["built-in", "visual", "debugging"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-020",
+      "category": "skills",
+      "name": "ralph-loop",
+      "description": "Ralph 迭代循环：持续改进直到满足退出条件，适合需要多轮优化的任务",
+      "tags": ["built-in", "iteration", "optimization"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-021",
+      "category": "skills",
+      "name": "find-skills",
+      "description": "发现和查找可用 Skill：按类别浏览、搜索，了解每个 Skill 的用途和触发方式",
+      "tags": ["built-in", "discovery", "meta"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-022",
+      "category": "skills",
+      "name": "project-kickstart",
+      "description": "新项目启动引导 Skill：架构设计、技术选型、目录结构规划、配置初始化一站式",
+      "tags": ["built-in", "project", "architecture"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-023",
+      "category": "skills",
+      "name": "loop",
+      "description": "定时循环执行命令：/loop 5m /something，适合轮询 CI 状态、定期检查部署",
+      "tags": ["built-in", "scheduling", "automation"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-024",
+      "category": "skills",
+      "name": "keybindings-help",
+      "description": "键盘快捷键帮助和自定义：查看当前绑定、添加 chord 快捷键、修改默认键位",
+      "tags": ["built-in", "shortcuts", "ux"],
+      "added": "2026-06-08"
+    },
+
+    {
+      "id": "sk-sp-001",
+      "category": "skills",
+      "name": "using-superpowers (Superpowers)",
+      "description": "Superpowers 系统入口 Skill，每次对话自动激活，确保所有开发方法论 Skill 可用",
+      "tags": ["superpowers", "meta", "auto-trigger"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-002",
+      "category": "skills",
+      "name": "writing-plans (Superpowers)",
+      "description": "编写详细实施计划：分析需求 → 设计架构 → 列出文件变更 → 预估工时 → 生成 step-by-step 计划",
+      "tags": ["superpowers", "planning", "design"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-003",
+      "category": "skills",
+      "name": "executing-plans (Superpowers)",
+      "description": "按既定计划逐步执行，每步完成后检查，偏差时自动调整，保持进度跟踪",
+      "tags": ["superpowers", "execution", "tracking"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-004",
+      "category": "skills",
+      "name": "test-driven-development (Superpowers)",
+      "description": "TDD 测试驱动开发流程：红 → 绿 → 重构，先写测试再写实现，确保每个功能都有测试覆盖",
+      "tags": ["superpowers", "tdd", "testing"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-005",
+      "category": "skills",
+      "name": "systematic-debugging (Superpowers)",
+      "description": "系统性调试方法论：复现 → 缩小范围 → 假设验证 → 修复 → 回归测试，科学排查 Bug",
+      "tags": ["superpowers", "debugging", "methodology"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-006",
+      "category": "skills",
+      "name": "verification-before-completion (Superpowers)",
+      "description": "完成前验证 Skill：确保改动已生效、测试通过、无回归、文档已更新，防止遗漏",
+      "tags": ["superpowers", "verification", "quality"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-007",
+      "category": "skills",
+      "name": "subagent-driven-development (Superpowers)",
+      "description": "子代理驱动开发：将大任务分解为独立子任务，多个子代理并行执行，主代理汇总结果",
+      "tags": ["superpowers", "parallel", "agent"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-008",
+      "category": "skills",
+      "name": "dispatching-parallel-agents (Superpowers)",
+      "description": "调度多个并行代理同时执行不同维度的任务（审查/扫描/分析），大幅提升效率",
+      "tags": ["superpowers", "parallel", "dispatch"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-009",
+      "category": "skills",
+      "name": "requesting-code-review (Superpowers)",
+      "description": "发起代码审查请求：生成审查请求、指定审查维度（正确性/安全/性能）、发送给审查者",
+      "tags": ["superpowers", "code-review", "collaboration"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-010",
+      "category": "skills",
+      "name": "receiving-code-review (Superpowers)",
+      "description": "接收和处理代码审查反馈：分类问题（Critical/Warning/Suggestion）、逐条修复、回复 comment",
+      "tags": ["superpowers", "code-review", "feedback"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-011",
+      "category": "skills",
+      "name": "finishing-a-development-branch (Superpowers)",
+      "description": "开发分支收尾 Skill：最终审查 → 测试通过确认 → 更新 CHANGELOG → 合并到 main → 清理分支",
+      "tags": ["superpowers", "git", "merge"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-012",
+      "category": "skills",
+      "name": "using-git-worktrees (Superpowers)",
+      "description": "Git Worktree 使用指南：隔离工作空间、并行开发多个功能、共享同一份 .git 历史",
+      "tags": ["superpowers", "git", "isolation"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-013",
+      "category": "skills",
+      "name": "writing-skills (Superpowers)",
+      "description": "编写新 Skill 的 Skill：引导创建 SKILL.md、定义 frontmatter、写规则、测试和发布自定义 Skill",
+      "tags": ["superpowers", "meta", "authoring"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-sp-014",
+      "category": "skills",
+      "name": "brainstorming (Superpowers)",
+      "description": "Superpowers 版创意设计 Skill：比内置版更结构化，含需求探索 → 方案生成 → 评分 → 综合",
+      "tags": ["superpowers", "design", "creative"],
+      "added": "2026-06-08"
+    },
+
+    {
+      "id": "sk-ua-001",
+      "category": "skills",
+      "name": "understand (UA)",
+      "description": "代码库理解入口 Skill，自动选择最佳子 Skill：快速扫描 → 选择合适深度的理解方式",
+      "tags": ["understand-anything", "codebase", "exploration"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-002",
+      "category": "skills",
+      "name": "understand-chat (UA)",
+      "description": "与代码库对话 Skill：问答式探索，随时追问细节，适合灵活交互式代码学习",
+      "tags": ["understand-anything", "qa", "chat"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-003",
+      "category": "skills",
+      "name": "understand-dashboard (UA)",
+      "description": "知识图谱可视化仪表盘：图形化浏览项目架构、模块关系、调用链路",
+      "tags": ["understand-anything", "visualization", "dashboard"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-004",
+      "category": "skills",
+      "name": "understand-diff (UA)",
+      "description": "差异分析 Skill：对比两个版本/分支的代码改动，理解变更影响范围",
+      "tags": ["understand-anything", "diff", "comparison"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-005",
+      "category": "skills",
+      "name": "understand-domain (UA)",
+      "description": "业务领域分析 Skill：提取业务逻辑、识别领域模型、画出业务流程，对非技术背景也友好",
+      "tags": ["understand-anything", "domain", "business"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-006",
+      "category": "skills",
+      "name": "understand-explain (UA)",
+      "description": "深度代码讲解 Skill：逐函数、逐行解释复杂代码逻辑，适合学习陌生模块或代码审查",
+      "tags": ["understand-anything", "explanation", "learning"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-007",
+      "category": "skills",
+      "name": "understand-knowledge (UA)",
+      "description": "知识图谱查询 Skill：搜索符号、追踪调用链、查找类/函数/变量的所有使用位置",
+      "tags": ["understand-anything", "knowledge-graph", "search"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-ua-008",
+      "category": "skills",
+      "name": "understand-onboard (UA)",
+      "description": "新成员上手引导 Skill：自动生成项目导览、核心文件介绍、架构概览，快速让新人理解项目",
+      "tags": ["understand-anything", "onboarding", "guide"],
+      "added": "2026-06-08"
+    },
+
+    {
+      "id": "sk-git-001",
+      "category": "skills",
+      "name": "commit (Commit-Commands)",
+      "description": "生成规范 commit message 并提交：基于实际 diff 内容生成有意义的 commit，不是模板填空",
+      "tags": ["commit-commands", "git", "commit"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-git-002",
+      "category": "skills",
+      "name": "commit-push-pr (Commit-Commands)",
+      "description": "一条龙操作：commit → push → 创建 PR（含自动生成的标题+描述+关联 Issue）",
+      "tags": ["commit-commands", "git", "pr", "workflow"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-git-003",
+      "category": "skills",
+      "name": "clean_gone (Commit-Commands)",
+      "description": "清理远程已删除的本地分支：自动识别并删除 origin 上不存在的本地跟踪分支",
+      "tags": ["commit-commands", "git", "maintenance"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-rpt-001",
+      "category": "skills",
+      "name": "session-report",
+      "description": "会话总结报告 Skill：自动生成当前会话的工作摘要、关键决策、产出物清单",
+      "tags": ["session-report", "summary", "report"],
+      "added": "2026-06-08"
+    },
+
+    {
+      "id": "sk-dsn-001",
+      "category": "skills",
+      "name": "design-taste-frontend (Agent)",
+      "description": "前端设计品味检查：从排版/配色/间距/层次等维度审查 UI 设计，给出具体改进建议",
+      "tags": ["agent-skill", "design", "frontend"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-002",
+      "category": "skills",
+      "name": "design-taste-frontend-v1 (Agent)",
+      "description": "前端设计品味 v1（另一套标准）：不同的设计评估维度和审美标准",
+      "tags": ["agent-skill", "design", "frontend"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-003",
+      "category": "skills",
+      "name": "minimalist-ui (Agent)",
+      "description": "极简 UI 设计 Skill：追求简洁、留白、克制，去除一切非必要视觉元素",
+      "tags": ["agent-skill", "design", "minimalist"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-004",
+      "category": "skills",
+      "name": "industrial-brutalist-ui (Agent)",
+      "description": "工业粗野主义 UI：原始材料质感、大胆排版、反精致审美，适合个性化项目",
+      "tags": ["agent-skill", "design", "brutalist"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-005",
+      "category": "skills",
+      "name": "high-end-visual-design (Agent)",
+      "description": "高端视觉设计 Skill：精品级打磨，像素级细节，适合品牌页面和产品展示",
+      "tags": ["agent-skill", "design", "premium"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-006",
+      "category": "skills",
+      "name": "image-to-code (Agent)",
+      "description": "图片转代码 Skill：上传设计稿/截图/Mockup → 生成 HTML/CSS/React 代码",
+      "tags": ["agent-skill", "design", "conversion"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-007",
+      "category": "skills",
+      "name": "diagram-design (Agent)",
+      "description": "图表设计 Skill：自动生成架构图、流程图、UML 图、序列图，支持 Mermaid 和 ASCII",
+      "tags": ["agent-skill", "diagram", "architecture"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-008",
+      "category": "skills",
+      "name": "brandkit (Agent)",
+      "description": "品牌视觉套件 Skill：自动生成 Logo/配色方案/字体系统/组件库，建立一致的品牌视觉",
+      "tags": ["agent-skill", "brand", "identity"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-009",
+      "category": "skills",
+      "name": "stitch-design-taste (Agent)",
+      "description": "设计品味缝合 Skill：混合多种设计风格生成独特视觉方案",
+      "tags": ["agent-skill", "design", "hybrid"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-010",
+      "category": "skills",
+      "name": "redesign-existing-projects (Agent)",
+      "description": "已有项目重设计 Skill：分析现有 UI → 提出改进方案 → 生成新设计 → 对比评估",
+      "tags": ["agent-skill", "design", "redesign"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-011",
+      "category": "skills",
+      "name": "impeccable (Agent)",
+      "description": "无瑕设计 Skill：像素级精细打磨，逐元素检查对齐/间距/阴影/动画，追求 0 瑕疵",
+      "tags": ["agent-skill", "design", "pixel-perfect"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-012",
+      "category": "skills",
+      "name": "gpt-taste (Agent)",
+      "description": "GPT 风格设计品味 Skill：以 OpenAI/GPT 的设计审美为标准评估和生成 UI",
+      "tags": ["agent-skill", "design", "gpt-style"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-013",
+      "category": "skills",
+      "name": "imagegen-frontend-web (Agent)",
+      "description": "Web 界面 AI 生成 Skill：用 AI 生成 Web 页面截图，用于设计灵感和快速原型",
+      "tags": ["agent-skill", "design", "generation"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-dsn-014",
+      "category": "skills",
+      "name": "imagegen-frontend-mobile (Agent)",
+      "description": "移动端界面 AI 生成 Skill：用 AI 生成手机 App 截图，快速可视化移动端设计",
+      "tags": ["agent-skill", "design", "mobile"],
+      "added": "2026-06-08"
+    },
+
+    {
+      "id": "sk-util-001",
+      "category": "skills",
+      "name": "llm-wiki (Agent)",
+      "description": "LLM 知识百科 Skill：查询各大语言模型的架构、能力、价格、API 用法、论文解读",
+      "tags": ["agent-skill", "llm", "knowledge"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-util-002",
+      "category": "skills",
+      "name": "full-output-enforcement (Agent)",
+      "description": "完整输出强制 Skill：防止模型输出被截断，确保代码/文档生成完整",
+      "tags": ["agent-skill", "output", "control"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-util-003",
+      "category": "skills",
+      "name": "xmind (Agent)",
+      "description": "XMind 思维导图 Skill：创建和编辑 .xmind 文件，自动组织结构化思路",
+      "tags": ["agent-skill", "mindmap", "thinking"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "sk-util-004",
+      "category": "skills",
+      "name": "cc-guide-practice (本地)",
+      "description": "Claude Code 实战指南：本地编写的 CC 使用经验总结、最佳实践和踩坑记录",
+      "tags": ["local", "guide", "best-practices"],
+      "added": "2026-06-08"
+    },
+
+    {
+      "id": "tr-001",
+      "category": "tools-reference",
+      "name": "cc-connect 命令手册",
+      "description": "cc-connect v1.3.3-beta.4 完整命令手册：daemon 管理、微信/飞书对接、会话切换、定时任务",
+      "url": "https://github.com/1726777059/AI-architecture/blob/main/docs/tools/cc-connect-commands.md",
+      "tags": ["cc-connect", "messaging", "remote"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "tr-002",
+      "category": "tools-reference",
+      "name": "Claude Code CLI 命令参考",
+      "description": "Claude Code CLI 全部命令参考：启动参数、会话管理、权限配置、60+ Slash Skill 命令速查、常用工作流",
+      "url": "https://github.com/1726777059/AI-architecture/blob/main/docs/tools/claude-code-commands.md",
+      "tags": ["claude-code", "cli", "reference"],
+      "added": "2026-06-08"
+    },
+    {
+      "id": "tr-003",
+      "category": "tools-reference",
+      "name": "Skills 全量清单 (61个)",
+      "description": "所有已安装 Skill 的完整目录和说明：内置/插件/Agent，含安装指南和场景推荐组合",
+      "url": "https://github.com/1726777059/AI-architecture/blob/main/docs/skills/README.md",
+      "tags": ["skills", "catalog", "reference"],
+      "added": "2026-06-08"
     }
   ]
 }

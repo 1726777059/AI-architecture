@@ -852,6 +852,15 @@
       "url": "https://github.com/1726777059/AI-architecture/blob/main/docs/skills/README.md",
       "tags": ["skills", "catalog", "reference"],
       "added": "2026-06-08"
+    },
+    {
+      "id": "tr-004",
+      "category": "tools-reference",
+      "name": "Skills & MCPs 思维导图 + 重叠分析",
+      "description": "Mermaid 全景思维导图 + 按作用分类速查表 + 功能重叠/冲突分析（含精简建议）",
+      "url": "https://github.com/1726777059/AI-architecture/blob/main/docs/skills/mindmap.md",
+      "tags": ["mindmap", "analysis", "skills", "mcp"],
+      "added": "2026-06-08"
     }
   ]
 }

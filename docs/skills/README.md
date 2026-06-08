@@ -388,4 +388,4 @@ my-skill/
 ---
 
 > **最后更新**: 2026-06-08
-> **配套文档**: ../tools/claude-code-commands.md / ../tools/cc-connect-commands.md
+> **配套文档**: [mindmap.md](./mindmap.md) / [../tools/claude-code-commands.md](../tools/claude-code-commands.md)

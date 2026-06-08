@@ -7,7 +7,7 @@
 | 目录 | 描述 |
 |:--|:--|
 | [tools/](./tools/) | Claude Code 生态工具命令参考（cc-connect + Claude Code CLI） |
-| [skills/](./skills/) | 全部 61 个已安装 Skill 的完整清单与使用指南 |
+| [skills/](./skills/) | 全部 61 个已安装 Skill 的完整清单 + 思维导图 + 重叠分析 |
 | [superpowers/](./superpowers/) | Superpowers 插件相关规格和设计文档 |
 
 ## 文档标识符规范

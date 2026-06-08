@@ -1,1 +1,162 @@
-{"updated":"","total_days":0,"days":[],"skills":{},"mcps":{},"summary":{"total_skills":0,"total_mcps":0,"total_estimated_tokens":0}}
+{
+  "updated": "2026-06-08T09:54:14Z",
+  "total_days": 1,
+  "days": [
+    {
+      "date": "2026-05-26",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-05-27",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-05-28",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-05-29",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-05-30",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-05-31",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-01",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-02",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-03",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-04",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-05",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-06",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-07",
+      "skill_count": 0,
+      "mcp_count": 0,
+      "skills_used": [],
+      "mcps_used": []
+    },
+    {
+      "date": "2026-06-08",
+      "skill_count": 7,
+      "mcp_count": 19,
+      "skills_used": [
+        "code-simplifier",
+        "code-review",
+        "brainstorming",
+        "using-superpowers",
+        "mcp-builder",
+        "fewer-permission-prompts",
+        "planning-with-files-zh"
+      ],
+      "mcps_used": [
+        "codegraph::codegraph_search",
+        "codegraph::codegraph_explore",
+        "codegraph::codegraph_files",
+        "fetch::fetch",
+        "fetch::fetch",
+        "codegraph::codegraph_explore",
+        "codegraph::codegraph_node",
+        "codegraph::codegraph_callers",
+        "codegraph::codegraph_impact",
+        "memory::create_entities",
+        "memory::search_nodes",
+        "fetch::fetch",
+        "codegraph::codegraph_explore",
+        "codegraph::codegraph_callees",
+        "fetch::fetch",
+        "codegraph::codegraph_files",
+        "memory::add_observations",
+        "codegraph::codegraph_explore",
+        "memory::read_graph"
+      ]
+    }
+  ],
+  "skills": {
+    "using-superpowers": 1,
+    "brainstorming": 1,
+    "planning-with-files-zh": 1,
+    "fewer-permission-prompts": 1,
+    "code-review": 1,
+    "code-simplifier": 1,
+    "mcp-builder": 1
+  },
+  "mcps": {
+    "codegraph::codegraph_explore": 4,
+    "fetch::fetch": 4,
+    "codegraph::codegraph_files": 2,
+    "codegraph::codegraph_search": 1,
+    "codegraph::codegraph_node": 1,
+    "codegraph::codegraph_callers": 1,
+    "codegraph::codegraph_impact": 1,
+    "memory::create_entities": 1,
+    "memory::search_nodes": 1,
+    "codegraph::codegraph_callees": 1,
+    "memory::add_observations": 1,
+    "memory::read_graph": 1
+  },
+  "summary": {
+    "total_skills": 7,
+    "total_mcps": 19,
+    "total_estimated_tokens": 4350,
+    "skill_tokens": 2450,
+    "mcp_tokens": 1900
+  }
+}

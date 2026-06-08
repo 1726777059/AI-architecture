@@ -1,0 +1,26 @@
+{"ts":"2026-06-08T06:10:00Z","type":"Skill","name":"using-superpowers","args":""}
+{"ts":"2026-06-08T06:10:05Z","type":"MCP","server":"codegraph","action":"codegraph_search"}
+{"ts":"2026-06-08T06:10:10Z","type":"MCP","server":"codegraph","action":"codegraph_explore"}
+{"ts":"2026-06-08T06:10:20Z","type":"MCP","server":"codegraph","action":"codegraph_files"}
+{"ts":"2026-06-08T06:12:00Z","type":"MCP","server":"fetch","action":"fetch"}
+{"ts":"2026-06-08T06:15:00Z","type":"MCP","server":"fetch","action":"fetch"}
+{"ts":"2026-06-08T06:20:00Z","type":"MCP","server":"codegraph","action":"codegraph_explore"}
+{"ts":"2026-06-08T06:25:00Z","type":"Skill","name":"brainstorming","args":""}
+{"ts":"2026-06-08T06:30:00Z","type":"MCP","server":"codegraph","action":"codegraph_node"}
+{"ts":"2026-06-08T06:35:00Z","type":"MCP","server":"codegraph","action":"codegraph_callers"}
+{"ts":"2026-06-08T06:40:00Z","type":"Skill","name":"planning-with-files-zh","args":"技能目录+命令手册+思维导图"}
+{"ts":"2026-06-08T06:45:00Z","type":"MCP","server":"codegraph","action":"codegraph_impact"}
+{"ts":"2026-06-08T06:50:00Z","type":"MCP","server":"memory","action":"create_entities"}
+{"ts":"2026-06-08T06:55:00Z","type":"MCP","server":"memory","action":"search_nodes"}
+{"ts":"2026-06-08T07:00:00Z","type":"MCP","server":"fetch","action":"fetch"}
+{"ts":"2026-06-08T07:05:00Z","type":"Skill","name":"fewer-permission-prompts","args":""}
+{"ts":"2026-06-08T07:10:00Z","type":"MCP","server":"codegraph","action":"codegraph_explore"}
+{"ts":"2026-06-08T07:15:00Z","type":"Skill","name":"code-review","args":"catalog.json + settings.json"}
+{"ts":"2026-06-08T07:20:00Z","type":"MCP","server":"codegraph","action":"codegraph_callees"}
+{"ts":"2026-06-08T07:25:00Z","type":"MCP","server":"fetch","action":"fetch"}
+{"ts":"2026-06-08T07:30:00Z","type":"Skill","name":"code-simplifier","args":""}
+{"ts":"2026-06-08T07:35:00Z","type":"MCP","server":"codegraph","action":"codegraph_files"}
+{"ts":"2026-06-08T07:40:00Z","type":"MCP","server":"memory","action":"add_observations"}
+{"ts":"2026-06-08T07:45:00Z","type":"Skill","name":"mcp-builder","args":"stats tracker + hook"}
+{"ts":"2026-06-08T07:50:00Z","type":"MCP","server":"codegraph","action":"codegraph_explore"}
+{"ts":"2026-06-08T07:55:00Z","type":"MCP","server":"memory","action":"read_graph"}

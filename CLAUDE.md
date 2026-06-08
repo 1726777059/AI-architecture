@@ -29,13 +29,21 @@ Vibecoding 资源目录 — 多维度记录与发现 vibecoding 工具、资源�
 │   └── app.js                 # 数据加载、渲染、搜索/过滤
 ├── data/
 │   └── catalog.json           # 结构化资源数据（核心数据文件）
+├── docs/
+│   ├── README.md              # 文档目录索引
+│   ├── tools/
+│   │   ├── README.md              # 工具参考索引
+│   │   ├── cc-connect-commands.md # cc-connect 完整使用手册
+│   │   └── claude-code-commands.md# Claude Code CLI 命令参考
+│   ├── skills/
+│   │   └── README.md              # 61 个 Skill 全量清单
+│   └── superpowers/
+│       └── specs/                 # Superpowers 规格文档
 ├── .claude/
 │   ├── settings.json          # Claude Code 配置（hooks、权限等）
 │   ├── settings.local.json    # 本地个性化配置
 │   ├── hooks/                 # 质量门禁脚本
-│   │   ├── ...                # （同上）
 │   ├── agents/                # Subagent 定义
-│   │   └── ...
 │   ├── rules/                 # 路径级规则
 │   │   ├── code-rules.md          # 代码规范
 │   │   └── documentation-rules.md # 文档规范

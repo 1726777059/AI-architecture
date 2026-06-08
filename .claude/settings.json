@@ -22,6 +22,28 @@
             "statusMessage": "🔍 检查 Context 膨胀..."
           }
         ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/track_skill_mcp.sh",
+            "timeout": 5,
+            "statusMessage": "🎯 Skill 已触发"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/track_skill_mcp.sh",
+            "timeout": 5,
+            "statusMessage": "🔌 MCP 已调用"
+          }
+        ]
       }
     ],
     "PreToolUse": [

@@ -92,6 +92,22 @@ Vibecoding 资源目录 — 多维度记录与发现 vibecoding 工具、资源�
 2. 修改规范/规则文件前评估影响范围
 3. 不在 main/master 分支直接工作
 4. 关键决策写入 Memory 系统（.claude/projects/）
+5. **每次使用 Skill 时主动声明**："使用 [skill-name] Skill 来 [目的]"
+6. **每次调用 MCP 时主动声明**：说明调用了哪个 MCP Server、做什么
+
+### Skill/MCP 使用透明度规则
+- 使用 Skill 前：先告知用户将使用哪个 Skill、为什么
+- 使用 MCP 前：先告知用户将调用哪个 MCP Server
+- 禁止"静默"使用 Skill/MCP 而不告知
+- 如果手动实现了一个 Skill 已有的功能，解释为什么不直接调用 Skill
+- 用户可以通过以下方式自行验证：
+  ```
+  # 查看 Skill/MCP 调用日志
+  cat .claude/logs/tool-usage.jsonl
+
+  # 开启调试模式查看完整工具调用
+  claude -d "tools,skills"
+  ```
 
 ### 推荐的工作方式
 - 大文件读取委托 subagent（universal-analyzer），主 Context 只收摘要

@@ -9,9 +9,7 @@
       --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
       --text: #e1e4eb; --muted: #8b8fa3; --accent: #6366f1;
       --skill: #ec4899; --mcp: #10b981; --token: #f59e0b;
-      --bar-skill: linear-gradient(180deg, #ec4899, #be185d);
-      --bar-mcp: linear-gradient(180deg, #10b981, #047857);
-      --success: #10b981; --warn: #f59e0b;
+      --miss: #ef4444; --hit: #22c55e;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -23,78 +21,84 @@
     .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
 
     /* Summary Cards */
-    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
     .card__label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
     .card__value { font-size: 2rem; font-weight: 700; margin-top: 0.25rem; }
     .card__sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
-    .card--skill .card__value { color: var(--skill); }
-    .card--mcp .card__value { color: var(--mcp); }
+    .card--hit .card__value { color: var(--hit); }
+    .card--miss .card__value { color: var(--miss); }
+    .card--rate .card__value { color: var(--accent); }
     .card--token .card__value { color: var(--token); }
-    .card--days .card__value { color: var(--accent); }
+    .card--waste .card__value { color: var(--miss); }
+
+    /* Hit rate gauge */
+    .gauge-wrap { display:flex; align-items:center; gap:0.75rem; margin-top:0.5rem; }
+    .gauge { flex:1; height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+    .gauge__fill { height:100%; border-radius:4px; transition:width 0.5s; }
+    .gauge__fill--good { background:linear-gradient(90deg, var(--skill), var(--hit)); }
+    .gauge__fill--bad { background:linear-gradient(90deg, var(--miss), var(--token)); }
+    .gauge__label { font-size:0.7rem; color:var(--muted); white-space:nowrap; }
 
     /* Section */
     .section { margin-bottom: 2rem; }
-    .section h2 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text); }
+    .section h2 { font-size: 1.1rem; margin-bottom: 1rem; }
 
     /* Bar Chart */
     .chart { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-    .chart__title { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
-    .bar-group { display: flex; align-items: flex-end; gap: 0.25rem; height: 140px; margin-bottom: 0.5rem; }
-    .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .bar-group { display: flex; align-items: flex-end; gap: 0.25rem; height: 150px; margin-bottom: 0.5rem; }
+    .bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; }
     .bar-stack { width:100%; display:flex; flex-direction:column; justify-content:flex-end; gap:2px; }
     .bar { width:100%; border-radius: 3px 3px 0 0; min-height: 2px; transition: height 0.3s; }
-    .bar--skill { background: var(--bar-skill); }
-    .bar--mcp { background: var(--bar-mcp); }
+    .bar--hit { background: var(--hit); }
+    .bar--miss { background: var(--miss); }
+    .bar--mcp { background: var(--mcp); }
     .bar-label { font-size:0.6rem; color:var(--muted); writing-mode:vertical-lr; margin-top:4px; }
     .bar-legend { display:flex; gap:1rem; justify-content:center; margin-top:0.5rem; font-size:0.75rem; }
     .bar-legend span { display:flex; align-items:center; gap:0.35rem; color:var(--muted); }
-    .bar-legend .dot { width:8px; height:8px; border-radius:2px; }
-    .bar-legend .dot--skill { background:var(--skill); }
-    .bar-legend .dot--mcp { background:var(--mcp); }
+    .dot { width:8px; height:8px; border-radius:2px; display:inline-block; }
+    .dot--hit { background:var(--hit); } .dot--miss { background:var(--miss); } .dot--mcp { background:var(--mcp); }
 
     /* Rank List */
     .rank-list { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
     .rank { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.25rem; }
     .rank h3 { font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem; }
-    .rank-item { display:flex; align-items:center; gap:0.5rem; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+    .rank-item { display:flex; align-items:center; gap:0.5rem; padding:0.4rem 0; border-bottom:1px solid var(--border); }
     .rank-item:last-child { border-bottom:none; }
     .rank-num { font-size:0.7rem; color:var(--muted); width:1.5rem; text-align:right; }
     .rank-name { flex:1; font-size:0.82rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .rank-count { font-size:0.75rem; font-weight:600; padding:2px 8px; border-radius:10px; }
-    .rank-count--skill { background:rgba(236,72,153,0.15); color:var(--skill); }
-    .rank-count--mcp { background:rgba(16,185,129,0.15); color:var(--mcp); }
+    .r-hit { background:rgba(34,197,94,0.15); color:var(--hit); }
+    .r-miss { background:rgba(239,68,68,0.15); color:var(--miss); }
+    .r-mcp { background:rgba(16,185,129,0.15); color:var(--mcp); }
 
-    /* Table */
-    .log-table { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-    .log-table table { width:100%; border-collapse:collapse; font-size:0.8rem; }
-    .log-table th { text-align:left; padding:0.6rem 1rem; color:var(--muted); font-weight:500;
+    /* Miss Details */
+    .miss-list { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .miss-list table { width:100%; border-collapse:collapse; font-size:0.8rem; }
+    .miss-list th { text-align:left; padding:0.6rem 1rem; color:var(--muted); font-weight:500;
                     background:rgba(0,0,0,0.2); border-bottom:1px solid var(--border); }
-    .log-table td { padding:0.5rem 1rem; border-bottom:1px solid var(--border); }
-    .log-table tr:last-child td { border-bottom:none; }
+    .miss-list td { padding:0.5rem 1rem; border-bottom:1px solid var(--border); }
+    .miss-list tr:last-child td { border-bottom:none; }
     .badge { display:inline-block; padding:1px 8px; border-radius:8px; font-size:0.7rem; font-weight:600; }
-    .badge--skill { background:rgba(236,72,153,0.2); color:var(--skill); }
+    .badge--hit { background:rgba(34,197,94,0.2); color:var(--hit); }
+    .badge--miss { background:rgba(239,68,68,0.2); color:var(--miss); }
     .badge--mcp { background:rgba(16,185,129,0.2); color:var(--mcp); }
+    .badge--waste { background:rgba(245,158,11,0.2); color:var(--token); }
+
     .no-data { color:var(--muted); text-align:center; padding:3rem; }
     .updated { font-size:0.7rem; color:var(--muted); text-align:center; margin-top:2rem; }
 
-    /* Token note */
-    .token-note { background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.2);
-                  border-radius:12px; padding:1rem 1.25rem; margin-top:1rem; font-size:0.8rem;
-                  color:var(--muted); }
-    .token-note strong { color:var(--token); }
-
     @media (max-width:768px) {
-      .summary { grid-template-columns: repeat(2, 1fr); }
+      .summary { grid-template-columns: repeat(3, 1fr); }
       .rank-list { grid-template-columns: 1fr; }
-      .bar-group { height: 80px; }
+      .bar-group { height: 100px; }
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>📊 Skill & MCP 命中统计</h1>
-    <p>每日任务执行追踪 · Token 消耗估算 · <a href="index.html" style="color:var(--accent);">← 返回资源目录</a></p>
+    <h1>📊 Skill 命中率追踪</h1>
+    <p>命中(Hit) × 漏报(Miss) × Token浪费 · <a href="index.html" style="color:var(--accent);">← 返回资源目录</a></p>
   </div>
   <div class="container" id="app">
     <div class="no-data">加载中...</div>
@@ -103,141 +107,167 @@
   <script>
     (async function() {
       const app = document.getElementById('app');
-
-      // 加载统计
       let stats;
       try {
         const resp = await fetch('data/stats.json');
         stats = await resp.json();
       } catch(e) {
-        app.innerHTML = `<div class="no-data">
-          ⚠️ 暂无统计数据。请先运行: <code style="color:var(--accent);">bash scripts/generate-stats.sh</code>
-        </div>`;
+        app.innerHTML = `<div class="no-data">⚠️ 暂无统计数据。运行: <code style="color:var(--accent);">bash scripts/generate-stats.sh</code></div>`;
         return;
       }
 
       if (!stats.days || stats.days.length === 0) {
-        app.innerHTML = '<div class="no-data">📭 暂无 Skill/MCP 调用记录</div>';
+        app.innerHTML = '<div class="no-data">📭 暂无记录</div>';
         return;
       }
 
-      // 找最大值用于图表比例
-      const maxVal = Math.max(1, ...stats.days.map(d => d.skill_count + d.mcp_count));
+      const s = stats.summary;
+      const maxVal = Math.max(1, ...stats.days.map(d => d.hits + d.misses + d.mcp_count));
       const barMaxH = 130;
 
-      // 构建 HTML
+      // Hit rate color
+      const rateColor = s.hit_rate >= 70 ? 'var(--hit)' : s.hit_rate >= 40 ? 'var(--token)' : 'var(--miss)';
+      const gaugeClass = s.hit_rate >= 50 ? 'good' : 'bad';
+
       app.innerHTML = `
-        <!-- 汇总卡片 -->
+        <!-- 5 卡片 -->
         <div class="summary">
-          <div class="card card--skill">
-            <div class="card__label">🎯 Skill 总命中</div>
-            <div class="card__value">${stats.summary.total_skills}</div>
-            <div class="card__sub">次调用</div>
+          <div class="card card--hit">
+            <div class="card__label">✅ 命中 (Hits)</div>
+            <div class="card__value">${s.total_skills}</div>
+            <div class="card__sub">Skill 调用次数</div>
           </div>
-          <div class="card card--mcp">
-            <div class="card__label">🔌 MCP 总调用</div>
-            <div class="card__value">${stats.summary.total_mcps}</div>
-            <div class="card__sub">次调用</div>
+          <div class="card card--miss">
+            <div class="card__label">❌ 漏报 (Misses)</div>
+            <div class="card__value">${s.total_misses}</div>
+            <div class="card__sub">该用但没用</div>
+          </div>
+          <div class="card card--rate">
+            <div class="card__label">🎯 命中率</div>
+            <div class="card__value" style="color:${rateColor}">${s.hit_rate}%</div>
+            <div class="gauge-wrap">
+              <div class="gauge"><div class="gauge__fill gauge__fill--${gaugeClass}" style="width:${s.hit_rate}%"></div></div>
+              <span class="gauge__label">${s.hit_rate >= 70 ? '优秀' : s.hit_rate >= 40 ? '一般' : '需改进'}</span>
+            </div>
           </div>
           <div class="card card--token">
-            <div class="card__label">⚡ 估算 Token</div>
-            <div class="card__value">${(stats.summary.total_estimated_tokens / 1000).toFixed(1)}k</div>
-            <div class="card__sub">Skill ${(stats.summary.skill_tokens/1000).toFixed(1)}k + MCP ${(stats.summary.mcp_tokens/1000).toFixed(1)}k</div>
+            <div class="card__label">⚡ 实际消耗</div>
+            <div class="card__value">${(s.total_estimated_tokens/1000).toFixed(1)}k</div>
+            <div class="card__sub">Skill ${(s.skill_tokens/1000).toFixed(1)}k + MCP ${(s.mcp_tokens/1000).toFixed(1)}k</div>
           </div>
-          <div class="card card--days">
-            <div class="card__label">📅 活跃天数</div>
-            <div class="card__value">${stats.total_days}</div>
-            <div class="card__sub">/${stats.days.length} 天</div>
+          <div class="card card--waste">
+            <div class="card__label">💸 浪费 Token</div>
+            <div class="card__value">${(s.wasted_tokens/1000).toFixed(1)}k</div>
+            <div class="card__sub">${s.total_misses} 次漏报累计浪费</div>
           </div>
         </div>
 
         <!-- 每日柱状图 -->
         <div class="section">
-          <h2>📅 每日 Skill/MCP 命中趋势（近 ${stats.days.length} 天）</h2>
+          <h2>📅 每日 命中/漏报/MCP（近 ${stats.days.length} 天）</h2>
           <div class="chart">
             <div class="bar-group">
               ${stats.days.map(d => {
-                const sh = d.skill_count > 0 ? Math.max(2, (d.skill_count / maxVal) * barMaxH) : 0;
-                const mh = d.mcp_count > 0 ? Math.max(2, (d.mcp_count / maxVal) * barMaxH) : 0;
-                const dateLabel = d.date.slice(5); // MM-DD
+                const total = d.hits + d.misses + d.mcp_count;
+                const hh = d.hits > 0 ? Math.max(3, (d.hits / maxVal) * barMaxH) : 0;
+                const mh = d.misses > 0 ? Math.max(3, (d.misses / maxVal) * barMaxH) : 0;
+                const ch = d.mcp_count > 0 ? Math.max(3, (d.mcp_count / maxVal) * barMaxH) : 0;
+                const dateLabel = d.date.slice(5);
                 const isToday = d.date === stats.days[stats.days.length-1].date;
+                const labelColor = isToday ? 'var(--accent)' : 'var(--muted)';
                 return `<div class="bar-col">
                   <div class="bar-stack" style="height:${barMaxH}px">
-                    <div class="bar bar--skill" style="height:${sh}px" title="Skill: ${d.skill_count}"></div>
-                    <div class="bar bar--mcp" style="height:${mh}px" title="MCP: ${d.mcp_count}"></div>
+                    <div class="bar bar--hit" style="height:${hh}px" title="命中: ${d.hits}"></div>
+                    <div class="bar bar--miss" style="height:${mh}px" title="漏报: ${d.misses}"></div>
+                    <div class="bar bar--mcp" style="height:${ch}px" title="MCP: ${d.mcp_count}"></div>
                   </div>
-                  <div class="bar-label" style="font-weight:${isToday?'700':'400'};color:${isToday?'var(--accent)':'var(--muted)'}">${dateLabel}</div>
-                  <div style="font-size:0.55rem;color:var(--muted);">${d.skill_count+d.mcp_count||''}</div>
+                  <div class="bar-label" style="font-weight:${isToday?'700':'400'};color:${labelColor}">${dateLabel}</div>
+                  <div style="font-size:0.55rem;color:var(--muted);">${total||''}</div>
                 </div>`;
               }).join('')}
             </div>
             <div class="bar-legend">
-              <span><span class="dot dot--skill"></span> Skill 命中</span>
-              <span><span class="dot dot--mcp"></span> MCP 调用</span>
+              <span><span class="dot dot--hit"></span> 命中</span>
+              <span><span class="dot dot--miss"></span> 漏报</span>
+              <span><span class="dot dot--mcp"></span> MCP</span>
             </div>
           </div>
         </div>
 
-        <!-- Top 排行 -->
+        <!-- 排行 -->
         <div class="section">
-          <h2>🏆 使用频率排行</h2>
+          <h2>🏆 排行</h2>
           <div class="rank-list">
             <div class="rank">
-              <h3>🎯 Top Skills</h3>
-              ${Object.entries(stats.skills).slice(0,10).map(([name,count],i) => `
+              <h3>✅ 命中 Top10</h3>
+              ${Object.entries(stats.skills).slice(0,10).map(([n,c],i) => `
                 <div class="rank-item">
-                  <span class="rank-num">#${i+1}</span>
-                  <span class="rank-name" title="${name}">${name}</span>
-                  <span class="rank-count rank-count--skill">${count}×</span>
-                </div>
-              `).join('') || '<div class="no-data" style="padding:1rem;">暂无记录</div>'}
+                  <span class="rank-num">#${i+1}</span><span class="rank-name" title="${n}">${n}</span>
+                  <span class="rank-count r-hit">${c}x</span>
+                </div>`).join('') || '<div class="no-data" style="padding:1rem;">—</div>'}
             </div>
             <div class="rank">
-              <h3>🔌 Top MCPs</h3>
-              ${Object.entries(stats.mcps).slice(0,10).map(([name,count],i) => `
+              <h3>❌ 漏报排行</h3>
+              ${Object.entries(stats.misses).slice(0,10).map(([n,v],i) => `
                 <div class="rank-item">
-                  <span class="rank-num">#${i+1}</span>
-                  <span class="rank-name" title="${name}">${name}</span>
-                  <span class="rank-count rank-count--mcp">${count}×</span>
-                </div>
-              `).join('') || '<div class="no-data" style="padding:1rem;">暂无记录</div>'}
+                  <span class="rank-num">#${i+1}</span><span class="rank-name" title="${n}: ${v.reasons.join('; ')}">${n}</span>
+                  <span class="rank-count r-miss">${v.count}x 废${(v.total_waste/1000).toFixed(1)}k</span>
+                </div>`).join('') || '<div class="no-data" style="padding:1rem;">🎉 暂无漏报</div>'}
             </div>
           </div>
         </div>
 
-        <!-- 每日明细表 -->
+        <!-- 每日明细 -->
         <div class="section">
           <h2>📋 每日明细</h2>
-          <div class="log-table">
+          <div class="miss-list">
             <table>
               <thead><tr>
-                <th>日期</th><th>Skill 命中</th><th>MCP 调用</th><th>使用 Skill</th><th>调用 MCP</th>
+                <th>日期</th><th>命中</th><th>漏报</th><th>命中率</th><th>浪费</th><th>MCP</th>
               </tr></thead>
               <tbody>
-                ${stats.days.filter(d=>d.skill_count>0||d.mcp_count>0).reverse().map(d => `
-                <tr>
-                  <td style="white-space:nowrap;">${d.date}</td>
-                  <td><span class="badge badge--skill">${d.skill_count} 次</span></td>
-                  <td><span class="badge badge--mcp">${d.mcp_count} 次</span></td>
-                  <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${d.skills_used.join(', ')}">${d.skills_used.join(', ') || '—'}</td>
-                  <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${d.mcps_used.join(', ')}">${d.mcps_used.join(', ') || '—'}</td>
-                </tr>`).join('')}
+                ${stats.days.filter(d=>d.hits>0||d.misses>0).reverse().map(d => {
+                  const rateColor = d.hit_rate >= 70 ? 'var(--hit)' : d.hit_rate >= 40 ? 'var(--token)' : 'var(--miss)';
+                  return `<tr>
+                    <td style="white-space:nowrap;">${d.date}</td>
+                    <td><span class="badge badge--hit">${d.hits} 次</span></td>
+                    <td><span class="badge badge--miss">${d.misses} 次</span></td>
+                    <td style="color:${rateColor};font-weight:600;">${d.hit_rate}%</td>
+                    <td><span class="badge badge--waste">${(d.waste_tokens/1000).toFixed(1)}k</span></td>
+                    <td><span class="badge badge--mcp">${d.mcp_count} 次</span></td>
+                  </tr>`;
+                }).join('')}
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- Token 说明 -->
-        <div class="token-note">
-          <strong>💡 关于 Token 消耗：</strong>
-          以上为粗略估算（Skill 加载 ~350 token/次，MCP 调用 ~100 token/次）。
-          实际消耗取决于 Skill 定义的复杂度。<br>
-          如果不使用 Skill，每次需要手动编写等效 prompt，通常消耗更多 token 且质量不稳定。
-          命中 Skill = 节省 Token + 提升一致性。<br>
-          更新统计: <code style="color:var(--accent);">bash scripts/generate-stats.sh</code>
-        </div>
+        ${s.total_misses > 0 ? `
+        <div class="section">
+          <h2>🔍 漏报详情</h2>
+          <div class="miss-list" style="max-height:400px;overflow-y:auto;">
+            <table>
+              <thead><tr><th>日期</th><th>任务</th><th>应使用 Skill</th><th>跳过原因</th><th>浪费</th></tr></thead>
+              <tbody>
+                ${stats.days.filter(d=>d.misses>0).reverse().flatMap(d =>
+                  d.miss_details.map(m => `<tr>
+                    <td style="white-space:nowrap;">${d.date}</td>
+                    <td>${m.task}</td>
+                    <td><span class="badge badge--miss">${m.skill}</span></td>
+                    <td style="color:var(--muted);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${m.reason}">${m.reason}</td>
+                    <td><span class="badge badge--waste">${(m.waste||0) >= 1000 ? (m.waste/1000).toFixed(1)+'k' : m.waste||0} tok</span></td>
+                  </tr>`)
+                ).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>` : ''}
 
-        <div class="updated">最后更新: ${stats.updated || '未知'}</div>
+        <div class="updated">
+          最后更新: ${stats.updated || '未知'} ·
+          命中率 = 命中/(命中+漏报) · 目标 >70% ·
+          更新: <code style="color:var(--accent);">bash scripts/generate-stats.sh</code>
+        </div>
       `;
     })();
   </script>

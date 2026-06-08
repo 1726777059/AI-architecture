@@ -95,19 +95,37 @@ Vibecoding 资源目录 — 多维度记录与发现 vibecoding 工具、资源�
 5. **每次使用 Skill 时主动声明**："使用 [skill-name] Skill 来 [目的]"
 6. **每次调用 MCP 时主动声明**：说明调用了哪个 MCP Server、做什么
 
-### Skill/MCP 使用透明度规则
-- 使用 Skill 前：先告知用户将使用哪个 Skill、为什么
-- 使用 MCP 前：先告知用户将调用哪个 MCP Server
-- 禁止"静默"使用 Skill/MCP 而不告知
-- 如果手动实现了一个 Skill 已有的功能，解释为什么不直接调用 Skill
-- 用户可以通过以下方式自行验证：
-  ```
-  # 查看 Skill/MCP 调用日志
-  cat .claude/logs/tool-usage.jsonl
+### Skill/MCP 命中追踪规则（严格）
 
-  # 开启调试模式查看完整工具调用
-  claude -d "tools,skills"
-  ```
+**每次收到用户请求后，必须执行以下检查：**
+
+1. **查映射表**：对照 `docs/skills/task-skill-map.md`，检查当前任务是否匹配已有 Skill
+2. **命中则用**：匹配到 Skill 时必须调用，并声明："命中 [skill-name] Skill → 执行 [任务]"
+3. **未命中则记**：匹配到 Skill 但选择不用 → 必须记录漏报到 `.claude/logs/tool-usage.jsonl`：
+   ```json
+   {"ts":"...","type":"miss","task":"用户请求描述","skill":"应使用的Skill","reason":"跳过的原因","est_waste":估算浪费的token数}
+   ```
+4. **不适用则跳过**：任务不匹配任何 Skill → 正常执行，无需记录
+
+**漏报是浪费 Token：**
+- 每个漏报 = 手写等效 prompt 多消耗 1000-3000 token
+- Skill 加载只需 300-500 token
+- 目标：hit rate > 70%
+
+**用户可随时验证：**
+```
+# 查看完整命中/漏报日志
+cat .claude/logs/tool-usage.jsonl | python3 -c "
+import sys,json
+hits=misses=0
+for l in sys.stdin:
+  d=json.loads(l.strip())
+  if d.get('type')=='Skill': hits+=1
+  elif d.get('type')=='miss': misses+=1
+total=hits+misses
+print(f'Hit Rate: {hits}/{total} = {hits/total*100:.0f}%' if total else 'No data')
+"
+```
 
 ### 推荐的工作方式
 - 大文件读取委托 subagent（universal-analyzer），主 Context 只收摘要

@@ -24,3 +24,5 @@
 {"ts":"2026-06-08T07:45:00Z","type":"Skill","name":"mcp-builder","args":"stats tracker + hook"}
 {"ts":"2026-06-08T07:50:00Z","type":"MCP","server":"codegraph","action":"codegraph_explore"}
 {"ts":"2026-06-08T07:55:00Z","type":"MCP","server":"memory","action":"read_graph"}
+{"ts":"2026-06-08T07:58:00Z","type":"miss","task":"创建 Skills/MCPs 思维导图","skill":"diagram-design","reason":"直接手写 Mermaid 更简单，图简单不需要 Skill 的完整流程","est_waste":800}
+{"ts":"2026-06-08T07:59:00Z","type":"miss","task":"批量录入 85 条 catalog 数据","skill":"mcp-builder","reason":"一次性数据录入，手工 JSON 比构建 MCP 工具更快","est_waste":1500}

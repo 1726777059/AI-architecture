@@ -1,132 +1,192 @@
 {
-  "updated": "2026-06-08T09:54:14Z",
+  "updated": "2026-06-08T10:05:07Z",
   "total_days": 1,
   "days": [
     {
       "date": "2026-05-26",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-05-27",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-05-28",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-05-29",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-05-30",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-05-31",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-01",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-02",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-03",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-04",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-05",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-06",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-07",
-      "skill_count": 0,
+      "hits": 0,
+      "misses": 0,
       "mcp_count": 0,
+      "hit_rate": 0,
       "skills_used": [],
-      "mcps_used": []
+      "mcps_used": [],
+      "miss_details": [],
+      "waste_tokens": 0
     },
     {
       "date": "2026-06-08",
-      "skill_count": 7,
+      "hits": 7,
+      "misses": 2,
       "mcp_count": 19,
+      "hit_rate": 78,
       "skills_used": [
-        "code-simplifier",
-        "code-review",
-        "brainstorming",
-        "using-superpowers",
         "mcp-builder",
+        "brainstorming",
         "fewer-permission-prompts",
-        "planning-with-files-zh"
+        "planning-with-files-zh",
+        "using-superpowers",
+        "code-simplifier",
+        "code-review"
       ],
       "mcps_used": [
-        "codegraph::codegraph_search",
-        "codegraph::codegraph_explore",
-        "codegraph::codegraph_files",
-        "fetch::fetch",
-        "fetch::fetch",
-        "codegraph::codegraph_explore",
-        "codegraph::codegraph_node",
-        "codegraph::codegraph_callers",
-        "codegraph::codegraph_impact",
-        "memory::create_entities",
         "memory::search_nodes",
-        "fetch::fetch",
-        "codegraph::codegraph_explore",
         "codegraph::codegraph_callees",
         "fetch::fetch",
-        "codegraph::codegraph_files",
-        "memory::add_observations",
         "codegraph::codegraph_explore",
-        "memory::read_graph"
-      ]
+        "codegraph::codegraph_impact",
+        "codegraph::codegraph_search",
+        "codegraph::codegraph_node",
+        "memory::add_observations",
+        "memory::read_graph",
+        "codegraph::codegraph_files",
+        "memory::create_entities",
+        "codegraph::codegraph_callers"
+      ],
+      "miss_details": [
+        {
+          "task": "创建 Skills/MCPs 思维导图",
+          "skill": "diagram-design",
+          "reason": "直接手写 Mermaid 更简单，图简单不需要 Skill 的完整流程"
+        },
+        {
+          "task": "批量录入 85 条 catalog 数据",
+          "skill": "mcp-builder",
+          "reason": "一次性数据录入，手工 JSON 比构建 MCP 工具更快"
+        }
+      ],
+      "waste_tokens": 2300
     }
   ],
   "skills": {
@@ -152,11 +212,30 @@
     "memory::add_observations": 1,
     "memory::read_graph": 1
   },
+  "misses": {
+    "diagram-design": {
+      "count": 1,
+      "total_waste": 800,
+      "reasons": [
+        "直接手写 Mermaid 更简单，图简单不需要 Skill 的完整流程"
+      ]
+    },
+    "mcp-builder": {
+      "count": 1,
+      "total_waste": 1500,
+      "reasons": [
+        "一次性数据录入，手工 JSON 比构建 MCP 工具更快"
+      ]
+    }
+  },
   "summary": {
     "total_skills": 7,
     "total_mcps": 19,
+    "total_misses": 2,
+    "hit_rate": 78,
     "total_estimated_tokens": 4350,
     "skill_tokens": 2450,
-    "mcp_tokens": 1900
+    "mcp_tokens": 1900,
+    "wasted_tokens": 2300
   }
 }
